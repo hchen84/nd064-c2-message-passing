@@ -32,10 +32,10 @@ person_stub = PersonServiceStub(channel)
 @api.route("/locations")
 class LocationResource(Resource):
     @accepts(schema=LocationSchema)
-    @responds(schema=LocationSchema)
+    # @responds(schema=LocationSchema)
     def post(self) -> Location:
         payload = request.get_json()
-        location: Location = LocationService.create(payload)
+        # location: Location = LocationService.create(payload)
 
         global location_stub
         msg = LocationMessage(
@@ -47,7 +47,7 @@ class LocationResource(Resource):
         )
         response = location_stub.Create(msg)
 
-        return location
+        return response
 
     @responds(schema=LocationSchema, many=True)
     def get(self) -> List[Location]:
@@ -67,10 +67,10 @@ class LocationResource(Resource):
 @api.route("/persons")
 class PersonsResource(Resource):
     @accepts(schema=PersonSchema)
-    @responds(schema=PersonSchema)
+    # @responds(schema=PersonSchema)
     def post(self) -> Person:
         payload = request.get_json()
-        new_person: Person = PersonService.create(payload)
+        # new_person: Person = PersonService.create(payload)
 
         global person_stub
         msg = PersonMessage(
@@ -81,7 +81,7 @@ class PersonsResource(Resource):
         )
         response = person_stub.Create(msg)
 
-        return new_person
+        return response
 
     @responds(schema=PersonSchema, many=True)
     def get(self) -> List[Person]:
