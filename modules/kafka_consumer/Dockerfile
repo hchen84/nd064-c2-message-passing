@@ -1,7 +1,7 @@
 FROM python:3.8
 LABEL maintainer="Chen"
 
-COPY ./app/kafka_consumer /kafka_consumer
+COPY ./modules/kafka_consumer /kafka_consumer
 WORKDIR /kafka_consumer
 
 RUN pip install -r requirements.txt
