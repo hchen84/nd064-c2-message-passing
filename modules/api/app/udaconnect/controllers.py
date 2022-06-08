@@ -1,3 +1,4 @@
+from asyncio.log import logger
 from datetime import datetime
 
 from app.udaconnect.models import Connection, Location, Person
@@ -37,6 +38,7 @@ class LocationResource(Resource):
         payload = request.get_json()
         # location: Location = LocationService.create(payload)
 
+        print("start to send a location to grpc")
         global location_stub
         msg = LocationMessage(
             id=0,  # payload["id"],
@@ -46,7 +48,7 @@ class LocationResource(Resource):
             creation_time=payload["creation_time"]
         )
         response = location_stub.Create(msg)
-
+        print("sent a location grpc")
         return response
 
     @responds(schema=LocationSchema, many=True)
@@ -72,6 +74,7 @@ class PersonsResource(Resource):
         payload = request.get_json()
         # new_person: Person = PersonService.create(payload)
 
+        print("start to send a person to grpc")
         global person_stub
         msg = PersonMessage(
             id=0,  # payload["id"],
@@ -80,7 +83,7 @@ class PersonsResource(Resource):
             company_name=payload["company_name"]
         )
         response = person_stub.Create(msg)
-
+        print("sent a person grpc")
         return response
 
     @responds(schema=PersonSchema, many=True)
