@@ -1,15 +1,27 @@
 from kafka import KafkaConsumer
 import logging
+import json
+from app.udaconnect.services import ConnectionService, LocationService, PersonService
+from app.udaconnect.models import Connection, Location, Person
+from app.udaconnect.schemas import (
+    ConnectionSchema,
+    LocationSchema,
+    PersonSchema,
+)
 
 
-def process_topic_loaction(msg):
+def process_topic_location(msg):
     print("location:", msg)
-    logging.info(msg.decode())
+    # logging.info(msg.decode())
+    new_location: Location = LocationService.create(json.loads(msg.decode()))
+    logging.info("create new location")
 
 
 def process_topic_person(msg):
     print("person:", msg)
-    logging.info(msg.decode())
+    # logging.info(msg.decode())
+    new_person: Person = PersonService.create(json.loads(msg.decode()))
+    logging.info("create new person")
 
 
 def serve():
@@ -23,7 +35,7 @@ def serve():
     consumer.subscribe(['location', 'person'])
     logging.info("start KafkaConsumer")
 
-    func_dict = {"location": process_topic_loaction,
+    func_dict = {"location": process_topic_location,
                  "person": process_topic_person}
 
     while True:
