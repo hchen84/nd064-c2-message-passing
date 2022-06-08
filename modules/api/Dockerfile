@@ -4,7 +4,7 @@ COPY ./modules/api /api
 WORKDIR /api
 
 RUN apk add --no-cache gcc musl-dev linux-headers geos libc-dev postgresql-dev
-COPY requirements.txt requirements.txt
+# COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
