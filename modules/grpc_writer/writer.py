@@ -9,8 +9,11 @@ Sample implementation of a writer that can be used to write messages to gRPC.
 print("Sending sample payload...")
 
 channel = grpc.insecure_channel("localhost:30002")
+
+print("channel set ")
 stub = service_pb2_grpc.LocationServiceStub(channel)
 
+print("stub set ")
 # Update this with desired payload
 order = service_pb2.LocationMessage(
     id=2222,
@@ -19,6 +22,7 @@ order = service_pb2.LocationMessage(
     latitude='48',
     creation_time='2022-06-26'
 )
+print("creat lcoation message")
 response = stub.Create(order)
 print(response)
 
@@ -30,5 +34,6 @@ order = service_pb2.PersonMessage(
     last_name='chen',
     company_name='mercedes'
 )
+print("creat person message")
 response = stub.Create(order)
 print(response)
