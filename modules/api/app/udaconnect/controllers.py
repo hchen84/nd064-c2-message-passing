@@ -7,30 +7,58 @@ from app.udaconnect.schemas import (
     PersonSchema,
 )
 from app.udaconnect.services import ConnectionService, LocationService, PersonService
-from flask import request
+from flask import request, g
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 from typing import Optional, List
 
+import grpc
+from app.service_pb2 import LocationMessage, PersonMessage
+from app.service_pb2_grpc import *
+from app.service_pb2_grpc import PersonServiceStub, LocationServiceStub
+
+import json
+
 DATE_FORMAT = "%Y-%m-%d"
 
 api = Namespace("UdaConnect", description="Connections via geolocation.")  # noqa
+# sys.path.insert(1, '/path/to/application/app/folder')
 
-
+channel = grpc.insecure_channel("localhost:30002")
+g.location_stub = LocationServiceStub(channel)
+g.person_stub = PersonServiceStub(channel)
 # TODO: This needs better exception handling
 
 
 @api.route("/locations")
-@api.route("/locations/<location_id>")
-@api.param("location_id", "Unique ID for a given Location", _in="query")
 class LocationResource(Resource):
     @accepts(schema=LocationSchema)
     @responds(schema=LocationSchema)
     def post(self) -> Location:
-        request.get_json()
-        location: Location = LocationService.create(request.get_json())
+        payload = request.get_json()
+        location: Location = LocationService.create(payload)
+
+        stub = g.location_stub
+        msg = LocationMessage(
+            id=payload["id"],
+            person_id=payload["person_id"],
+            longitude=payload["longitude"],
+            latitude=payload["latitude"],
+            creation_time=payload["creation_time"]
+        )
+        response = stub.Create(msg)
+
         return location
 
+    @responds(schema=LocationSchema, many=True)
+    def get(self) -> List[Location]:
+        locations: Location = LocationService.retrieve_all()
+        return locations
+
+
+@api.route("/locations/<location_id>")
+@api.param("location_id", "Unique ID for a given Location", _in="query")
+class LocationResource(Resource):
     @responds(schema=LocationSchema)
     def get(self, location_id) -> Location:
         location: Location = LocationService.retrieve(location_id)
@@ -44,6 +72,15 @@ class PersonsResource(Resource):
     def post(self) -> Person:
         payload = request.get_json()
         new_person: Person = PersonService.create(payload)
+        stub = g.person_stub
+        msg = PersonMessage(
+            id=payload["id"],
+            first_name=payload["first_name"],
+            last_name=payload["last_name"],
+            company_name=payload["company_name"]
+        )
+        response = stub.Create(msg)
+
         return new_person
 
     @responds(schema=PersonSchema, many=True)
@@ -71,7 +108,8 @@ class ConnectionDataResource(Resource):
         start_date: datetime = datetime.strptime(
             request.args["start_date"], DATE_FORMAT
         )
-        end_date: datetime = datetime.strptime(request.args["end_date"], DATE_FORMAT)
+        end_date: datetime = datetime.strptime(
+            request.args["end_date"], DATE_FORMAT)
         distance: Optional[int] = request.args.get("distance", 5)
 
         results = ConnectionService.find_contacts(
