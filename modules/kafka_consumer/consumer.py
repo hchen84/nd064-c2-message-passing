@@ -11,17 +11,24 @@ from app.udaconnect.schemas import (
 
 
 def process_topic_location(msg):
-    print("location:", msg)
-    # logging.info(msg.decode())
-    new_location: Location = LocationService.create(json.loads(msg.decode()))
-    logging.info("create new location")
+    try:
+        print("location:", msg)
+        # logging.info(msg.decode())
+        new_location: Location = LocationService.create(
+            json.loads(msg.decode()))
+        logging.info("create new location")
+    except:
+        logging.error("can't creat location for " + json.loads(msg.decode()))
 
 
 def process_topic_person(msg):
-    print("person:", msg)
-    # logging.info(msg.decode())
-    new_person: Person = PersonService.create(json.loads(msg.decode()))
-    logging.info("create new person")
+    try:
+        print("person:", msg)
+        # logging.info(msg.decode())
+        new_person: Person = PersonService.create(json.loads(msg.decode()))
+        logging.info("create new person")
+    except:
+        logging.error("can't creat person for " + json.loads(msg.decode()))
 
 
 def serve():
@@ -30,10 +37,11 @@ def serve():
     # KAFKA_SERVER = 'localhost:30005'
     KAFKA_SERVER = 'kafka-headless:9092'
 
+    logging.info("starting KafkaConsumer")
     # consumer = KafkaConsumer()
     consumer = KafkaConsumer(bootstrap_servers=KAFKA_SERVER)
     consumer.subscribe(['location', 'person'])
-    logging.info("start KafkaConsumer")
+    logging.info("subscribe topic: location and person")
 
     func_dict = {"location": process_topic_location,
                  "person": process_topic_person}
