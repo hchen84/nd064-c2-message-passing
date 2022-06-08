@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import service_pb2 as service__pb2
+from . import service_pb2 as service__pb2
 
 
 class LocationServiceStub(object):
@@ -15,10 +15,10 @@ class LocationServiceStub(object):
             channel: A grpc.Channel.
         """
         self.Create = channel.unary_unary(
-                '/LocationService/Create',
-                request_serializer=service__pb2.LocationMessage.SerializeToString,
-                response_deserializer=service__pb2.LocationMessage.FromString,
-                )
+            '/LocationService/Create',
+            request_serializer=service__pb2.LocationMessage.SerializeToString,
+            response_deserializer=service__pb2.LocationMessage.FromString,
+        )
 
 
 class LocationServiceServicer(object):
@@ -33,37 +33,38 @@ class LocationServiceServicer(object):
 
 def add_LocationServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Create': grpc.unary_unary_rpc_method_handler(
-                    servicer.Create,
-                    request_deserializer=service__pb2.LocationMessage.FromString,
-                    response_serializer=service__pb2.LocationMessage.SerializeToString,
-            ),
+        'Create': grpc.unary_unary_rpc_method_handler(
+            servicer.Create,
+            request_deserializer=service__pb2.LocationMessage.FromString,
+            response_serializer=service__pb2.LocationMessage.SerializeToString,
+        ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'LocationService', rpc_method_handlers)
+        'LocationService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
-
  # This class is part of an EXPERIMENTAL API.
+
+
 class LocationService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
     def Create(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+               target,
+               options=(),
+               channel_credentials=None,
+               call_credentials=None,
+               insecure=False,
+               compression=None,
+               wait_for_ready=None,
+               timeout=None,
+               metadata=None):
         return grpc.experimental.unary_unary(request, target, '/LocationService/Create',
-            service__pb2.LocationMessage.SerializeToString,
-            service__pb2.LocationMessage.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+                                             service__pb2.LocationMessage.SerializeToString,
+                                             service__pb2.LocationMessage.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
 
 class PersonServiceStub(object):
@@ -76,10 +77,10 @@ class PersonServiceStub(object):
             channel: A grpc.Channel.
         """
         self.Create = channel.unary_unary(
-                '/PersonService/Create',
-                request_serializer=service__pb2.PersonMessage.SerializeToString,
-                response_deserializer=service__pb2.PersonMessage.FromString,
-                )
+            '/PersonService/Create',
+            request_serializer=service__pb2.PersonMessage.SerializeToString,
+            response_deserializer=service__pb2.PersonMessage.FromString,
+        )
 
 
 class PersonServiceServicer(object):
@@ -94,34 +95,35 @@ class PersonServiceServicer(object):
 
 def add_PersonServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Create': grpc.unary_unary_rpc_method_handler(
-                    servicer.Create,
-                    request_deserializer=service__pb2.PersonMessage.FromString,
-                    response_serializer=service__pb2.PersonMessage.SerializeToString,
-            ),
+        'Create': grpc.unary_unary_rpc_method_handler(
+            servicer.Create,
+            request_deserializer=service__pb2.PersonMessage.FromString,
+            response_serializer=service__pb2.PersonMessage.SerializeToString,
+        ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'PersonService', rpc_method_handlers)
+        'PersonService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
-
  # This class is part of an EXPERIMENTAL API.
+
+
 class PersonService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
     def Create(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+               target,
+               options=(),
+               channel_credentials=None,
+               call_credentials=None,
+               insecure=False,
+               compression=None,
+               wait_for_ready=None,
+               timeout=None,
+               metadata=None):
         return grpc.experimental.unary_unary(request, target, '/PersonService/Create',
-            service__pb2.PersonMessage.SerializeToString,
-            service__pb2.PersonMessage.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+                                             service__pb2.PersonMessage.SerializeToString,
+                                             service__pb2.PersonMessage.FromString,
+                                             options, channel_credentials,
+                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

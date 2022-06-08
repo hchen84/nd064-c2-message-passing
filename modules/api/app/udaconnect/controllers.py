@@ -14,7 +14,7 @@ from typing import Optional, List
 
 import grpc
 from app.service_pb2 import LocationMessage, PersonMessage
-from app.service_pb2_grpc import *
+import app.service_pb2_grpc
 from app.service_pb2_grpc import PersonServiceStub, LocationServiceStub
 
 import json
@@ -22,12 +22,11 @@ import json
 DATE_FORMAT = "%Y-%m-%d"
 
 api = Namespace("UdaConnect", description="Connections via geolocation.")  # noqa
-# sys.path.insert(1, '/path/to/application/app/folder')
 
 channel = grpc.insecure_channel("localhost:30002")
-g.location_stub = LocationServiceStub(channel)
-g.person_stub = PersonServiceStub(channel)
-# TODO: This needs better exception handling
+location_stub = LocationServiceStub(channel)
+person_stub = PersonServiceStub(channel)
+# # TODO: This needs better exception handling
 
 
 @api.route("/locations")
@@ -38,15 +37,15 @@ class LocationResource(Resource):
         payload = request.get_json()
         location: Location = LocationService.create(payload)
 
-        stub = g.location_stub
+        global location_stub
         msg = LocationMessage(
-            id=payload["id"],
+            id=0,  # payload["id"],
             person_id=payload["person_id"],
             longitude=payload["longitude"],
             latitude=payload["latitude"],
             creation_time=payload["creation_time"]
         )
-        response = stub.Create(msg)
+        response = location_stub.Create(msg)
 
         return location
 
@@ -72,14 +71,15 @@ class PersonsResource(Resource):
     def post(self) -> Person:
         payload = request.get_json()
         new_person: Person = PersonService.create(payload)
-        stub = g.person_stub
+
+        global person_stub
         msg = PersonMessage(
-            id=payload["id"],
+            id=0,  # payload["id"],
             first_name=payload["first_name"],
             last_name=payload["last_name"],
             company_name=payload["company_name"]
         )
-        response = stub.Create(msg)
+        response = person_stub.Create(msg)
 
         return new_person
 

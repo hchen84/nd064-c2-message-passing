@@ -18,7 +18,7 @@
       "request": "launch",
       "module": "flask",
       "env": {
-        "FLASK_APP": "./modules/api/wsgi.py",
+        "FLASK_APP": "app.py",
         "FLASK_ENV": "development",
         "DB_USERNAME": "ct_admin",
         // "DB_PASSWORD": "d293aW1zb3NlY3VyZQ==",

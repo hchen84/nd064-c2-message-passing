@@ -2,8 +2,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    service: kafka_comsumer
-  name: kafka_comsumer
+    service: kafka-comsumer
+  name: kafka-comsumer
 spec:
   ports:
   - name: "30003"
@@ -11,26 +11,26 @@ spec:
     targetPort: 9092
     nodePort: 30003
   selector:
-    service: kafka_comsumer
+    service: kafka-comsumer
   type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: kafka_comsumer
-  name: kafka_comsumer
+    service: kafka-comsumer
+  name: kafka-comsumer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: kafka_comsumer
+      service: kafka-comsumer
   template:
     metadata:
       labels:
-        service: kafka_comsumer
+        service: kafka-comsumer
     spec:
       containers:
-      - image: hainche/kafka_comsumer:latest
-        name: kafka_comsumer
+      - image: hainche/kafka_consumer:latest
+        name: kafka-comsumer
         imagePullPolicy: Always        
