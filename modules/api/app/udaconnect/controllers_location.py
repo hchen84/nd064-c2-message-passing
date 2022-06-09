@@ -24,6 +24,10 @@ import app.service_pb2_grpc
 from app.service_pb2_grpc import PersonServiceStub, LocationServiceStub
 
 import json
+import logging
+
+logging.basicConfig(level=logging.WARNING)
+logger = logging.getLogger("udaconnect-api")
 
 DATE_FORMAT = "%Y-%m-%d"
 
@@ -43,7 +47,7 @@ class LocationResource(Resource):
         payload = request.get_json()
         # location: Location = LocationService.create(payload)
 
-        print("start to send a location to grpc")
+        logging.info("start to send a location to grpc")
         global location_stub
         msg = LocationMessage(
             id=0,  # payload["id"],
@@ -53,7 +57,7 @@ class LocationResource(Resource):
             creation_time=payload["creation_time"]
         )
         response = location_stub.Create(msg)
-        print("sent a location grpc")
+        logging.info("sent a location grpc")
         return response
 
     @responds(schema=LocationSchema, many=True)

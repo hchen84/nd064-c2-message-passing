@@ -62,4 +62,6 @@ spec:
               key: DB_PORT
         - name: APP
           value: "location"        
+        - name: FLASK_ENV
+          value: "test"                    
       restartPolicy: Always

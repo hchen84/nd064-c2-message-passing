@@ -61,5 +61,7 @@ spec:
               name: db-env
               key: DB_PORT
         - name: APP
-          value: "person"                      
+          value: "person"         
+        - name: FLASK_ENV
+          value: "test"                
       restartPolicy: Always
