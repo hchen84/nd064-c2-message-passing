@@ -42,7 +42,7 @@ jobs:
           file: ./modules/api/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: hainche/nd064-udaconnect-api:latest          
+          tags: hainche/nd064-udaconnect-api:v1          
       # -
       #   name: Build and push nd064-udaconnect-location-api
       #   uses: docker/build-push-action@v2
