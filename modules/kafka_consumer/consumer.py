@@ -70,10 +70,12 @@ def serve():
     try:
         KAFKA_SERVER = 'localhost:30005'  # for local testing
         consumer = KafkaConsumer(bootstrap_servers=KAFKA_SERVER)
+        logging.info("connected to bootstrap_servers " + KAFKA_SERVER)
     except:
         try:
             KAFKA_SERVER = 'kafka-headless:9092'  # for deployment
             consumer = KafkaConsumer(bootstrap_servers=KAFKA_SERVER)
+            logging.info("connected to bootstrap_servers " + KAFKA_SERVER)
         except Exception as e:
             print(e)
             logging.error("can't connect to bootstrap_servers")
