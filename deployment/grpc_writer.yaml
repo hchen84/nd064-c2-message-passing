@@ -33,4 +33,6 @@ spec:
       containers:
       - image: hainche/grpc_writer:latest
         name: grpc-writer
-        imagePullPolicy: Always        
+        imagePullPolicy: Always  
+        ports:      
+        - containerPort: 9000
