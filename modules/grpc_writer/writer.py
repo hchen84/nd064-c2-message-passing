@@ -1,3 +1,4 @@
+import logging
 import grpc
 import service_pb2
 import service_pb2_grpc
@@ -8,8 +9,12 @@ Sample implementation of a writer that can be used to write messages to gRPC.
 
 print("Sending sample payload...")
 
-channel = grpc.insecure_channel("[::]:grpc")
-
+try:
+    channel = grpc.insecure_channel("10.43.254.112:grpc")
+    logging.info("10.43.254.112:grpc")
+except:
+    channel = grpc.insecure_channel("localhost:grpc")
+    logging.info("localhost:grpc")
 print("channel set ")
 stub = service_pb2_grpc.LocationServiceStub(channel)
 
