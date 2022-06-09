@@ -1,13 +1,18 @@
 from asyncio.log import logger
 from datetime import datetime
 
-from app.udaconnect.models import Connection, Location, Person
+from app.udaconnect.models import Location
 from app.udaconnect.schemas import (
-    ConnectionSchema,
     LocationSchema,
-    PersonSchema,
 )
-from app.udaconnect.services import ConnectionService, LocationService, PersonService
+from app.udaconnect.services import LocationService
+# from app.udaconnect.models import Connection, Location, Person
+# from app.udaconnect.schemas import (
+#     ConnectionSchema,
+#     LocationSchema,
+#     PersonSchema,
+# )
+# from app.udaconnect.services import ConnectionService, LocationService, PersonService
 from flask import request, g
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
