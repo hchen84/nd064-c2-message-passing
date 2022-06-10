@@ -102,10 +102,11 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
 6. `kubectl apply -f deployment/kafka_consumer.yaml` - Set up deployment and service for Kafka Consumer
 7. `kubectl exec -it kafka-0 -- kafka-topics.sh --create --bootstrap-server kafka-headless:9092 --replication-factor 1 --partitions 1 --topic location` - create topic for location
 8. `kubectl exec -it kafka-0 -- kafka-topics.sh --create --bootstrap-server kafka-headless:9092 --replication-factor 1 --partitions 1 --topic person` - create topic for person
-9. `kubectl apply -f deployment/grpc_server.yaml` - Set up deployment and service for GPRC Server
-10. `kubectl apply -f deployment/udaconnect-api-location.yaml` - Set up the service and deployment for the Location API
-11. `kubectl apply -f deployment/udaconnect-api-person.yaml` - Set up the service and deployment for the Person API
-12. `kubectl apply -f deployment/udaconnect-app.yaml` - Set up the service and deployment for the web app
+9. `kubectl apply -f deployment/grpc_person_server.yaml` - Set up deployment and service for GPRC Person Server
+10. `kubectl apply -f deployment/grpc_location_server.yaml` - Set up deployment and service for GPRC Location Server
+11. `kubectl apply -f deployment/udaconnect-api-location.yaml` - Set up the service and deployment for the Location API
+12. `kubectl apply -f deployment/udaconnect-api-person.yaml` - Set up the service and deployment for the Person API
+13. `kubectl apply -f deployment/udaconnect-app.yaml` - Set up the service and deployment for the web app
 
 Manually applying each of the individual `yaml` files is cumbersome but going through each step provides some context on the content of the starter project. In practice, we would have reduced the number of steps by running the command against a directory to apply of the contents: `kubectl apply -f deployment/`.
 
