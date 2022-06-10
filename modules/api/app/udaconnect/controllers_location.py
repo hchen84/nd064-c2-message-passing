@@ -41,7 +41,7 @@ location_stub = LocationServiceStub(channel)
 
 @api.route("/locations")
 class LocationResource(Resource):
-    @accepts(schema=LocationSchema)
+    # @accepts(schema=LocationSchema)
     # @responds(schema=LocationSchema)
     def post(self) -> Location:
         payload = request.get_json()
