@@ -4,30 +4,13 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-    {
-      "name": "Python: Current File",
-      "type": "python",
-      "request": "launch",
-      "program": "${file}",
-      "console": "integratedTerminal",
-      "justMyCode": true,
-      "env": {
-        "FLASK_APP": "./modules/api/wsgi.py",
-        "FLASK_ENV": "development",
-        "DB_USERNAME": "ct_admin",
-        // "DB_PASSWORD": "d293aW1zb3NlY3VyZQ==",
-        // # postgresql://ct_admin:wowimsosecure@postgres:5432/geoconnections
-        "DB_PASSWORD": "wowimsosecure",
-        "DB_HOST": "10.43.32.208", //postgres
-        "DB_PORT": "5432",
-        "DB_NAME": "geoconnections"
-      }
-    }
     // {
-    //   "name": "Python: Flask",
+    //   "name": "Python: Current File",
     //   "type": "python",
     //   "request": "launch",
-    //   "module": "flask",
+    //   "program": "${file}",
+    //   "console": "integratedTerminal",
+    //   "justMyCode": true,
     //   "env": {
     //     "FLASK_APP": "./modules/api/wsgi.py",
     //     "FLASK_ENV": "development",
@@ -37,11 +20,31 @@
     //     "DB_PASSWORD": "wowimsosecure",
     //     "DB_HOST": "10.43.32.208", //postgres
     //     "DB_PORT": "5432",
-    //     "DB_NAME": "geoconnections"
-    //   },
-    //   "args": ["run", "--no-debugger"],
-    //   "jinja": true,
-    //   "justMyCode": true
+    //     "DB_NAME": "geoconnections",
+    //     "APP": "location"
+    //   }
     // }
+    {
+      "name": "Python: Flask",
+      "type": "python",
+      "request": "launch",
+      "module": "flask",
+      "env": {
+        "FLASK_APP": "./modules/api/wsgi.py",
+        "FLASK_ENV": "test",
+        "DB_USERNAME": "ct_admin",
+        // "DB_PASSWORD": "d293aW1zb3NlY3VyZQ==",
+        // # postgresql://ct_admin:wowimsosecure@postgres:5432/geoconnections
+        "DB_PASSWORD": "wowimsosecure",
+        "DB_HOST": "10.43.32.208", //postgres
+        "DB_PORT": "5432",
+        "DB_NAME": "geoconnections",
+        "APP": "person"
+        // "APP": "location"
+      },
+      "args": ["run", "--no-debugger"],
+      "jinja": true,
+      "justMyCode": true
+    }
   ]
 }
