@@ -52,7 +52,7 @@ class PersonsResource(Resource):
         logging.info("start to send a person to grpc")
         global person_stub
         msg = PersonMessage(
-            id=0,  # payload["id"],
+            id=payload["id"],
             first_name=payload["first_name"],
             last_name=payload["last_name"],
             company_name=payload["company_name"]

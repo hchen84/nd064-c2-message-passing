@@ -10,11 +10,12 @@ Sample implementation of a writer that can be used to write messages to gRPC.
 print("Sending sample payload...")
 
 try:
-    channel = grpc.insecure_channel("10.43.0.1:grpc")
-    logging.info("10.43.0.1:grpc")
+    channel = grpc.insecure_channel("localhost:30002")
+    logging.info("localhost:30002")
 except:
-    channel = grpc.insecure_channel("localhost:grpc")
-    logging.info("localhost:grpc")
+    channel = grpc.insecure_channel("10.43.0.1:30002")
+    logging.info("10.43.0.1:30002")
+
 print("channel set ")
 stub = service_pb2_grpc.LocationServiceStub(channel)
 
