@@ -9,13 +9,6 @@ paths:
       operationId: get_location_resource
       tags:
         - UdaConnect
-    post:
-      responses:
-        '200':
-          description: Success
-      operationId: post_location_resource
-      tags:
-        - UdaConnect
   /api/locations/{location_id}:
     parameters:
       - in: path
@@ -36,13 +29,6 @@ paths:
         '200':
           description: Success
       operationId: get_persons_resource
-      tags:
-        - UdaConnect
-    post:
-      responses:
-        '200':
-          description: Success
-      operationId: post_persons_resource
       tags:
         - UdaConnect
   /api/persons/{person_id}:

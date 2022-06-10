@@ -26,35 +26,6 @@
 			"response": []
 		},
 		{
-			"name": "post_new_persons",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"id\": 4335,\n    \"first_name\": \"foo\",\n    \"last_name\": \"chen\",\n    \"company_name\": \"mercedes\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:30001/api/persons",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "30001",
-					"path": [
-						"api",
-						"persons"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "get_person_id_1",
 			"request": {
 				"method": "GET",
@@ -147,35 +118,6 @@
 						"api",
 						"locations",
 						"41"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "post_new_locations",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"id\": 3113,\n    \"person_id\": 1,\n    \"longitude\": \"9.0\",\n    \"latitude\": \"48.0\",\n    \"creation_time\": \"2022-06-08T10:37:06\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:30004/api/locations",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "30004",
-					"path": [
-						"api",
-						"locations"
 					]
 				}
 			},

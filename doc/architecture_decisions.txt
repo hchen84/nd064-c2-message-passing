@@ -1,1 +1,3 @@
-For POST request, new location or person will be inserted into database. The location api and person api are seperated, since frontend only use person API. Because the high request of data injection might cause crash of database, grpc and kafa are implemented to avoid this issue. 
+The location api and person api are seperated, since frontend only use person API. The deployments for location api and person api use the same docker image but with different envirement parameter (APP=location or person).  
+
+For POST request, new location or person will be inserted into database. Because the high request of data injection might cause crash of database, grpc and kafa are implemented to avoid this issue. The deployments for location sever and person server use the same docker image but with different envirement parameter (APP=location or person). 

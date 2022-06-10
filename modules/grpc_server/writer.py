@@ -14,13 +14,13 @@ logging.basicConfig(
 logging.info("Sending sample payload...")
 
 try:
-    channel = grpc.insecure_channel("localhost:30007")
-    logging.info("localhost:30007")
+    channel = grpc.insecure_channel("localhost:32000")
+    logging.info("channel on localhost:32000")
     stub = service_pb2_grpc.PersonServiceStub(channel)
     logging.info("PersonServiceStub set ")
     # Update this with desired payload
     order = service_pb2.PersonMessage(
-        id=4338,
+        id=10001,
         first_name="foo",
         last_name='chen',
         company_name='mercedes'
@@ -34,14 +34,14 @@ except Exception as e:
     logging.error("Unable to send person msg")
 
 try:
-    channel = grpc.insecure_channel("localhost:30008")
-    logging.info("localhost:30008")
+    channel = grpc.insecure_channel("localhost:32001")
+    logging.info("channel on localhost:32001")
     stub = service_pb2_grpc.LocationServiceStub(channel)
 
     logging.info("LocationServiceStub set ")
     # Update this with desired payload
     order = service_pb2.LocationMessage(
-        id=3118,
+        id=10001,
         person_id=1,
         longitude='9.0',
         latitude='48.0',

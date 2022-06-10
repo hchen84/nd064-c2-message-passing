@@ -25,7 +25,7 @@ except:
 class LocationServicer(service_pb2_grpc.LocationServiceServicer):
     def Create(self, request, context):
         global producer
-        print("Received a location message!")
+        logging.info("Received a location message!")
 
         request_value = {
             "id": request.id,
@@ -34,10 +34,11 @@ class LocationServicer(service_pb2_grpc.LocationServiceServicer):
             "latitude": request.latitude,
             "creation_time": request.creation_time
         }
-        logging.info("location: " + json.dumps(request_value))
+        logging.info("new location: " + json.dumps(request_value))
         data = json.dumps(request_value).encode()
         # TODO: create db with kafka
 
+        logging.info("sent msg to kafka consumer!")
         TOPIC_NAME = 'location'
         producer.send(TOPIC_NAME, data)
         producer.flush()
@@ -48,18 +49,20 @@ class LocationServicer(service_pb2_grpc.LocationServiceServicer):
 class PersonServicer(service_pb2_grpc.PersonServiceServicer):
     def Create(self, request, context):
         global producer
-        print("Received a person message!")
-
+        logging.info("Received a person message!")
         request_value = {
             "id": request.id,
             "first_name": request.first_name,
             "last_name": request.last_name,
             "company_name": request.company_name,
         }
-        logging.info("person: " + json.dumps(request_value))
+        logging.info("new person: " + json.dumps(request_value))
         # TODO: create db with kafka
         data = json.dumps(request_value).encode()
         TOPIC_NAME = 'person'
+
+        logging.info("sent msg to kafka consumer!")
+
         producer.send(TOPIC_NAME, data)
         producer.flush()
         return service_pb2.PersonMessage(**request_value)
@@ -81,7 +84,7 @@ def serve():
         logging.info("Person gRPC server initialized")
 
     # TODO: server pod
-    print("Server starting on port 5005...")
+    logging.info("Server starting on port 5005...")
     server.add_insecure_port("[::]:5005")
     server.start()
     # Keep thread alive
