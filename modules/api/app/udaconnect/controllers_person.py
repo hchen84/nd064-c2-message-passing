@@ -7,61 +7,18 @@ from app.udaconnect.schemas import (
     PersonSchema,
 )
 from app.udaconnect.services import ConnectionService, PersonService
-
-# from app.udaconnect.models import Connection, Location, Person
-# from app.udaconnect.schemas import (
-#     ConnectionSchema,
-#     LocationSchema,
-#     PersonSchema,
-# )
-# from app.udaconnect.services import ConnectionService, LocationService, PersonService
-from flask import request, g
+from flask import request
 from flask_accepts import accepts, responds
 from flask_restx import Namespace, Resource
 from typing import Optional, List
-
-import grpc
-from app.service_pb2 import LocationMessage, PersonMessage
-import app.service_pb2_grpc
-from app.service_pb2_grpc import PersonServiceStub, LocationServiceStub
-
-import json
-import logging
-
-logging.basicConfig(level=logging.WARNING)
-logger = logging.getLogger("udaconnect-api")
 
 DATE_FORMAT = "%Y-%m-%d"
 
 api = Namespace("UdaConnect", description="Connections via geolocation.")  # noqa
 
-channel = grpc.insecure_channel("localhost:30002")
-# channel = grpc.insecure_channel("127.0.0.1:5005")
-# location_stub = LocationServiceStub(channel)
-person_stub = PersonServiceStub(channel)
-# # TODO: This needs better exception handling
-
 
 @api.route("/persons")
 class PersonsResource(Resource):
-    @accepts(schema=PersonSchema)
-    @responds(schema=PersonSchema)
-    def post(self) -> Person:
-        payload = request.get_json()
-        new_person: Person = PersonService.create(payload)
-
-        logging.info("start to send a person to grpc")
-        global person_stub
-        msg = PersonMessage(
-            id=payload["id"],
-            first_name=payload["first_name"],
-            last_name=payload["last_name"],
-            company_name=payload["company_name"]
-        )
-        response = person_stub.Create(msg)
-        logging.info("sent a person grpc")
-        return new_person
-
     @responds(schema=PersonSchema, many=True)
     def get(self) -> List[Person]:
         persons: List[Person] = PersonService.retrieve_all()

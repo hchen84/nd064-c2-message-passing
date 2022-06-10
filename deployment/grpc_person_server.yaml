@@ -9,7 +9,7 @@ spec:
   - name: "30002"
     port: 5005
     targetPort: 5005
-    nodePort: 30002
+    nodePort: 30007
   selector:
     service: grpc-server
   type: NodePort
@@ -34,3 +34,6 @@ spec:
       - image: hainche/grpc_server:latest
         name: grpc-server
         imagePullPolicy: Always        
+        env:
+        - name: APP
+          value: "person"      

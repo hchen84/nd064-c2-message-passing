@@ -10,7 +10,7 @@ from concurrent import futures
 import grpc
 import service_pb2_grpc
 import service_pb2
-
+import os
 
 # def get_Kafka_Server():
 producer = None
@@ -20,7 +20,6 @@ try:
 except:
     KAFKA_SERVER = 'kafka-headless:9092'
     producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
-    # return producer
 
 
 class LocationServicer(service_pb2_grpc.LocationServiceServicer):
@@ -72,10 +71,14 @@ def serve():
 
     logging.info("Initialize gRPC server")
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
-    service_pb2_grpc.add_LocationServiceServicer_to_server(
-        LocationServicer(), server)
-    service_pb2_grpc.add_PersonServiceServicer_to_server(
-        PersonServicer(), server)
+    if "APP" in os.environ and os.environ["APP"] == "location":
+        service_pb2_grpc.add_LocationServiceServicer_to_server(
+            LocationServicer(), server)
+        logging.info("Location gRPC server initialized")
+    else:
+        service_pb2_grpc.add_PersonServiceServicer_to_server(
+            PersonServicer(), server)
+        logging.info("Person gRPC server initialized")
 
     # TODO: server pod
     print("Server starting on port 5005...")

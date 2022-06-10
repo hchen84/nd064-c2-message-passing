@@ -43,33 +43,15 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: hainche/nd064-udaconnect-api:latest          
-      # -
-      #   name: Build and push nd064-udaconnect-location-api
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     file: ./modules/location_api/Dockerfile
-      #     platforms: linux/amd64
-      #     push: true
-      #     tags: hainche/nd064-udaconnect-location-api:latest
-      # -
-      #   name: Build and push nd064-udaconnect-person-api
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     file: ./modules/person_api/Dockerfile
-      #     platforms: linux/amd64
-      #     push: true
-      #     tags: hainche/nd064-udaconnect-person-api:latest          
-      # -
-      #   name: Build and push grpc_server
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     file: ./modules/grpc_server/Dockerfile
-      #     platforms: linux/amd64
-      #     push: true
-      #     tags: hainche/grpc_server:latest
+      -
+        name: Build and push grpc_server
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./modules/grpc_server/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: hainche/grpc_server:latest
       -
         name: Build and push kafka_consumer
         uses: docker/build-push-action@v2
@@ -79,21 +61,12 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: hainche/kafka_consumer:latest          
-      # -
-      #   name: Build and push nd064-udaconnect-app
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     file: ./modules/frontend/Dockerfile
-      #     platforms: linux/amd64
-      #     push: true
-      #     tags: hainche/nd064-udaconnect-app:latest        
       -
-        name: Build and push grpc_writer
+        name: Build and push nd064-udaconnect-app
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./modules/grpc_writer/Dockerfile
+          file: ./modules/frontend/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: hainche/grpc_writer:latest          
+          tags: hainche/nd064-udaconnect-app:latest        
