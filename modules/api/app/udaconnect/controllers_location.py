@@ -41,11 +41,11 @@ location_stub = LocationServiceStub(channel)
 
 @api.route("/locations")
 class LocationResource(Resource):
-    # @accepts(schema=LocationSchema)
-    # @responds(schema=LocationSchema)
+    @accepts(schema=LocationSchema)
+    @responds(schema=LocationSchema)
     def post(self) -> Location:
         payload = request.get_json()
-        # location: Location = LocationService.create(payload)
+        new_location: Location = LocationService.create(payload)
 
         logging.info("start to send a location to grpc")
         global location_stub
@@ -58,7 +58,7 @@ class LocationResource(Resource):
         )
         response = location_stub.Create(msg)
         logging.info("sent a location grpc")
-        return response
+        return new_location
 
     @responds(schema=LocationSchema, many=True)
     def get(self) -> List[Location]:

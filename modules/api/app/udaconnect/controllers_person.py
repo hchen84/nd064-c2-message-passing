@@ -43,23 +43,23 @@ person_stub = PersonServiceStub(channel)
 
 @api.route("/persons")
 class PersonsResource(Resource):
-    # @accepts(schema=PersonSchema)
-    # @responds(schema=PersonSchema)
+    @accepts(schema=PersonSchema)
+    @responds(schema=PersonSchema)
     def post(self) -> Person:
         payload = request.get_json()
-        # new_person: Person = PersonService.create(payload)
+        new_person: Person = PersonService.create(payload)
 
         logging.info("start to send a person to grpc")
         global person_stub
         msg = PersonMessage(
-            id=int(payload["id"]),
+            id=payload["id"],
             first_name=payload["first_name"],
             last_name=payload["last_name"],
             company_name=payload["company_name"]
         )
         response = person_stub.Create(msg)
         logging.info("sent a person grpc")
-        return response
+        return new_person
 
     @responds(schema=PersonSchema, many=True)
     def get(self) -> List[Person]:

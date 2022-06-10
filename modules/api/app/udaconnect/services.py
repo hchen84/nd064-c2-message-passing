@@ -104,12 +104,13 @@ class LocationService:
             raise Exception(f"Invalid payload: {validation_results}")
 
         new_location = Location()
+        new_location.id = location["id"]
         new_location.person_id = location["person_id"]
         new_location.creation_time = location["creation_time"]
         new_location.coordinate = ST_Point(
             location["latitude"], location["longitude"])
-        db.session.add(new_location)
-        db.session.commit()
+        # db.session.add(new_location)
+        # db.session.commit()
 
         return new_location
 
@@ -122,12 +123,13 @@ class PersonService:
     @staticmethod
     def create(person: Dict) -> Person:
         new_person = Person()
+        new_person.id = person["id"]
         new_person.first_name = person["first_name"]
         new_person.last_name = person["last_name"]
         new_person.company_name = person["company_name"]
 
-        db.session.add(new_person)
-        db.session.commit()
+        # db.session.add(new_person)
+        # db.session.commit()
 
         return new_person
 
