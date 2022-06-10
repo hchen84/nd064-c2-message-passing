@@ -22,7 +22,7 @@ stub = service_pb2_grpc.LocationServiceStub(channel)
 print("LocationServiceStub set ")
 # Update this with desired payload
 order = service_pb2.LocationMessage(
-    id=3113,
+    id=3118,
     person_id=1,
     longitude='9.0',
     latitude='48.0',
@@ -37,7 +37,7 @@ stub = service_pb2_grpc.PersonServiceStub(channel)
 print("PersonServiceStub set ")
 # Update this with desired payload
 order = service_pb2.PersonMessage(
-    id=4334,
+    id=4338,
     first_name="hainan",
     last_name='chen',
     company_name='mercedes ag'

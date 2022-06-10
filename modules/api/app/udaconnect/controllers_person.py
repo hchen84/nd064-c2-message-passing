@@ -35,8 +35,8 @@ DATE_FORMAT = "%Y-%m-%d"
 
 api = Namespace("UdaConnect", description="Connections via geolocation.")  # noqa
 
-# channel = grpc.insecure_channel("localhost:30002")
-channel = grpc.insecure_channel("127.0.0.1:5005")
+channel = grpc.insecure_channel("localhost:30002")
+# channel = grpc.insecure_channel("127.0.0.1:5005")
 # location_stub = LocationServiceStub(channel)
 person_stub = PersonServiceStub(channel)
 # # TODO: This needs better exception handling
