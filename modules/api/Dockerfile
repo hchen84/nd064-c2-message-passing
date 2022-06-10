@@ -6,8 +6,7 @@ WORKDIR /api
 RUN apk add --no-cache gcc musl-dev linux-headers geos libc-dev postgresql-dev
 RUN pip install -r requirements.txt
 
-EXPOSE 5000
-EXPOSE 30003
+EXPOSE 5000 30003 5005
 
 COPY . .
 # CMD ["python", "-u", "wsgi.py"]
