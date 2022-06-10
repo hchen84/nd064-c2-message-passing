@@ -50,7 +50,7 @@ class LocationResource(Resource):
         logging.info("start to send a location to grpc")
         global location_stub
         msg = LocationMessage(
-            id=payload["id"],
+            id=0,  # payload["id"],
             person_id=payload["person_id"],
             longitude=payload["longitude"],
             latitude=payload["latitude"],
