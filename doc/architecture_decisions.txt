@@ -1,0 +1,1 @@
+For POST request, new location or person will be inserted into database. The location api and person api are seperated, since frontend only use person API. Because the high request of data injection might cause crash of database, grpc and kafa are implemented to avoid this issue. 
