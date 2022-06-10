@@ -7,6 +7,7 @@ RUN apk add --no-cache gcc musl-dev linux-headers geos libc-dev postgresql-dev
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
+EXPOSE 30003
 
 COPY . .
 # CMD ["python", "-u", "wsgi.py"]
